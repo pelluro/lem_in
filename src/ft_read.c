@@ -33,7 +33,7 @@ void	count_ants(t_map_read *m, char *s)
 		ft_exit();
 	while (line[i] != '\n' && line[i] != 0)
 	{
-		if (!ft_isdigit(line[i++])
+		if (!ft_isdigit(line[i++]))
 			ft_exit();
 	}
 }

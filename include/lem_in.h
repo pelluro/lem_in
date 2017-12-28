@@ -6,10 +6,10 @@
 
 typedef struct s_map_read
 {
-	char *room;
-	char *room_list;
-	char *ants;
-	char *links;
+	char	*room;
+	char	*room_list;
+	char	*ants;
+	char	*links;
 	int		nb_ants;
 	int		nb_room;
 	int		nb_links;

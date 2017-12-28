@@ -111,6 +111,7 @@ int				ft_toupper(int c);
 int		ft_max(int x, int y);
 int		ft_min(int x, int y);
 int				get_next_line(const int fd, char **line);
+int 			ft_isspace(char *c);
 
 size_t			ft_strlcat(char *restrict dest, const char *restrict src,
 		size_t len);

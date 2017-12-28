@@ -114,4 +114,4 @@ add_executable(lem_in
     include/libft/libft.h
     include/lem_in.h
     src/ft_read.c
-    src/main.c)
+    src/main.c include/libft/ft_isspace.c src/links.c src/room.c)
