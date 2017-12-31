@@ -26,8 +26,6 @@ ssize_t	ft_handle_hex(char **format, va_list *args, t_arg *arg)
 	uintmax_t	nbr;
 
 	nbr = ft_get_unsigned_from_length(args, arg);
-	if (arg->pad_zero)
-		arg->width -= 2;
 	if (**format == 'X')
 		return (ft_handle_uint(nbr, arg, "0123456789ABCDEF", "0X"));
 	else

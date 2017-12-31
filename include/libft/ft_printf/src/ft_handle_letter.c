@@ -87,4 +87,13 @@ ssize_t	ft_handle_escape(char **format, va_list *args, t_arg *arg)
 	return (arg->get_width ? ft_max(arg->width, 1) : 1);
 }
 
-
+ssize_t	ft_handle_null(char **format, va_list *args, t_arg *arg)
+{
+	(void)args;
+	if (arg->get_width && !arg->right_pad)
+		ft_width_pad(1, arg->width, (char)(arg->pad_zero ? '0' : ' '));
+	ft_putchar(**format);
+	if (arg->get_width && arg->right_pad)
+		ft_width_pad(1, arg->width, ' ');
+	return (arg->get_width ? ft_max(arg->width, 1) : 1);
+}

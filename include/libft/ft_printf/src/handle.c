@@ -61,26 +61,30 @@ ssize_t		ft_handle_uint(uintmax_t nbr,
 {
 	unsigned int			nbr_len;
 	unsigned int			nbrstrlen;
-
+	int 					bonusprec;
+	
+	bonusprec = 0;
+	nbrstrlen = 0;
 	if (arg->get_prec)
 		arg->pad_zero = 0;
 	nbr_len = ft_nbrlen(nbr, base);
-	
-	
+	if (arg->force_prefix && prefix != NULL && nbr != 0)
+	{
+		bonusprec -= 2;
+		ft_putstr(prefix);
+	}
+	else if (arg->get_width && !arg->right_pad)
+		ft_width_pad(nbrstrlen, arg->width, ' ');
 	if (arg->get_width && !arg->right_pad && arg->pad_zero)
 	{
 		if (arg->get_prec)
 			arg->precision = ft_max(arg->width, arg->precision);
 		else
-			arg->precision = ft_max(arg->width, nbr_len);
+			arg->precision = ft_max(arg->width, nbr_len) + bonusprec;
 		arg->get_prec = 1;
 		arg->get_width = 0;
 	}
 	nbrstrlen = ft_calc_nbrstrlen(nbr, base, prefix, arg);
-	if (arg->get_width && !arg->right_pad)
-		ft_width_pad(nbrstrlen, arg->width, ' ');
-	if (arg->force_prefix && prefix != NULL && nbr != 0)
-		ft_putstr(prefix);
 	ft_putnbrbp(nbr, base, arg, nbr_len);
 	if (arg->get_width && arg->right_pad)
 		ft_width_pad(nbrstrlen, arg->width, ' ');

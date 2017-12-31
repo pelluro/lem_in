@@ -1,16 +1,11 @@
-
+//
+// Created by pelluro on 28/12/17.
+//
 #include "libft.h"
 
-int		ft_isspace(char *s)
+int		ft_isspace(char c)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == ' ' || s[i] == '\n' || s[i] == '\t' || s[i] == '\v')
-			return (1);
-		i++;
-	}
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\a')
+		return (1);
 	return (0);
 }

@@ -1,37 +1,100 @@
-#include "../include/lem_in.h
 
-static int ft_isempty(char *s)
+#include "../include/lem_in.h"
+
+#include "../include/libft/libft.h"
+
+static int		is_empty(char *s)
 {
-	int i;
-
+	size_t i;
+	
 	i = 0;
-	while (s[i] && ft_isspace(s))
+	while (s[i] && ft_isspace(s[i]))
 		i++;
 	if (i == ft_strlen(s))
 		return (1);
 	return (0);
 }
 
-static t_map_read	*ft_map(void)
+static t_map	*map_init_2(t_map *m)
 {
-	t_map_read *map;
-
-	map = (t_map_read*)ft_memalloc(sizeof(t_map_read));
-	if (map == NULL)
-		return (0);
-	map->ants = ft_strnew(1);
-	map->links = ft_strnew(1);
-	map->room = ft_strnew(1);
-	map->nb_ants = 0;
-	map->nb_room = 0;
-	map->nb_links = 0;
-	return (map);
+	int i;
+	int j;
+	
+	i = -1;
+	m->init_2 = 1;
+	m->path = (int*)ft_memalloc(sizeof(int) * 1000);
+	m->tab = (int**)ft_memalloc(sizeof(int*) * m->q_rooms);
+	m->rooms = (char**)ft_memalloc(sizeof(char*) * (m->q_rooms + 1));
+	while (++i < m->q_rooms)
+	{
+		m->path[i] = -1;
+		m->rooms[i] = NULL;
+		m->tab[i] = (int*)ft_memalloc(sizeof(int) * m->q_rooms);
+		j = -1;
+		while (m->tab[i][++j])
+			m->tab[i][j] = 0;
+	}
+	m->rooms[i] = NULL;
+	m->path[0] = 0;
+	return (m);
 }
 
-int main(void)
+static void		read_map(t_map *m)
 {
-	t_map_read *map;
-	ft_read_map(map);
+	char *line;
+	
+	while (get_next_line(STDIN_FILENO, &line) > 0)
+	{
+		if (m->ants == 0)
+			count_ants(m, line);
+		else if (ft_strchr(line, '-') || m->started == 3)
+			links(m, line);
+		else if ((m->started == 1 || m->started == 2) && !is_empty(line))
+			rooms(m, line);
+		else
+			exit_func(m, 1);
+	}
+	if (!m->ants || !m->links[0])
+		exit_func(m, 1);
+	m = map_init_2(m);
+}
 
-	return(0);
+static t_map	*map_init(void)
+{
+	t_map *m;
+	
+	m = (t_map*)ft_memalloc(sizeof(t_map));
+	m->links = ft_strnew(1);
+	m->ants_str = ft_strnew(1);
+	m->rooms_list = ft_strnew(1);
+	m->q_rooms = 0;
+	m->ants = 0;
+	m->started = 0;
+	m->curr_room = 0;
+	m->p_ind = 0;
+	m->init_2 = 0;
+	m->good[0] = 0;
+	m->good[1] = 0;
+	m->rooms = NULL;
+	m->tab = NULL;
+	m->path = NULL;
+	return (m);
+}
+
+int				main(void)
+{
+	t_map *m;
+	
+	m = map_init();
+	read_map(m);
+	add_rooms(m);
+	if (!m->good[0] || !m->good[1])
+		exit_func(m, 1);
+	create_tab(m);
+	print_matrix(m);
+	if (solution(m, 0))
+		result(m);
+	else
+		exit_func(m, 1);
+	exit_func(m, 0);
 }

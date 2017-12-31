@@ -6,7 +6,7 @@
 #    By: mipham <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/15 11:00:27 by mipham            #+#    #+#              #
-#    Updated: 2017/12/19 17:30:02 by mipham           ###   ########.fr        #
+#    Updated: 2017/12/15 11:22:23 by mipham           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,12 +46,12 @@ $(OBJS): $(SRCS)
 		mv $(OBJ) $(OBJDIR)
 
 clean:
-		@echo "\nRM *.o.. \t      \033[32mDONE!\033[0m"
+		@echo "\nRM *.o.. \t      \033[32mOK BITCH!\033[0m"
 		@$(RM) $(OBJS)
 		$(RM) $(OBJDIR)
 
 fclean: clean
-		@echo "RM libftprintf.a..    \033[32mDONE!\033[0m"
+		@echo "RM libftprintf.a..    \033[32mOK BITCH!\033[0m"
 		@$(RM) $(NAME)
 
 re: fclean all
