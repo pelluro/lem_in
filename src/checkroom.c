@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft/libft.h"
 #include "../include/lem_in.h"
 
 static void		is_number(char **r, t_map *m, char *s)

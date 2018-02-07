@@ -10,10 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//
-// Created by pelluro on 27/12/17.
-//
-
 #ifndef LEM_IN_H
 #define LEM_IN_H
 
@@ -34,7 +30,6 @@ typedef struct	s_map
 	int			*path;			// path
 	int			**tab;			// edge table
 	int			good[2];		// a part of validation
-	int			new_line;		// a part of validation
 	int			init_2;			// a part of validation
 }				t_map;
 

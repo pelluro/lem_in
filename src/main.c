@@ -103,7 +103,7 @@ int				main(void)
 		exit_func(m, 1);
 	create_tab(m);
 	//show the matrix and connection inside them
-	//print_matrix(m);
+	print_matrix(m);
 	if (solution(m, 0))
 		result(m);
 	else

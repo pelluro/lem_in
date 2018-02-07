@@ -90,14 +90,14 @@ void		result(t_map *m)
 	ft_putendl(m->links);
 	ft_putchar('\n');
 	//show the connection between room
-//	while (++i <= m->p_ind)
-//	{
-//		ft_putchar('[');
-//		ft_putnbr(m->path[i]);
-//		ft_putchar(']');
-//		if (i != m->p_ind)
-//			ft_putchar('-');
-//	}
-//	ft_putstr("\n\n");
+	while (++i <= m->p_ind)
+	{
+		ft_putchar('[');
+		ft_putnbr(m->path[i]);
+		ft_putchar(']');
+		if (i != m->p_ind)
+			ft_putchar('-');
+	}
+	ft_putstr("\n\n");
 	print_result(m, 2);
 }

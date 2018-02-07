@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft/libft.h"
 #include "../include/lem_in.h"
 
 static void	validate_link(t_map *m, char *link)
