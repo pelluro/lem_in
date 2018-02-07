@@ -10,10 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//
-// Created by pelluro on 28/12/17.
-//
-
 #include "../include/libft/libft.h"
 #include "../include/lem_in.h"
 

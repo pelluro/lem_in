@@ -10,10 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//
-// Created by pelluro on 31/12/17.
-//
-#include "../include/libft/libft.h"
 #include "../include/lem_in.h"
 
 static int	is_last_room(t_map *m, int i)

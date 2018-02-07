@@ -6,17 +6,14 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:53:41 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/03 15:53:44 by mipham           ###   ########.fr       */
+/*   Updated: 2018/01/11 12:43:37 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//
-// Created by pelluro on 31/12/17.
-//
 #include "../include/libft/libft.h"
 #include "../include/lem_in.h"
 
-static void	is_number(char **r, t_map *m, char *s)
+static void		is_number(char **r, t_map *m, char *s)
 {
 	int i;
 
@@ -33,7 +30,7 @@ static void	is_number(char **r, t_map *m, char *s)
 		free_array(r, m, 1);
 }
 
-static void	validate_room(t_map *m, char *line)
+static void		validate_room(t_map *m, char *line)
 {
 	char **r;
 
@@ -45,7 +42,7 @@ static void	validate_room(t_map *m, char *line)
 	free_array(r, m, 0);
 }
 
-void		rooms(t_map *m, char *line)
+void			rooms(t_map *m, char *line)
 {
 	m->started = 2;
 	m->rooms_list = join_str(m->rooms_list, line, 0);

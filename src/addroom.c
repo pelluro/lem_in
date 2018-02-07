@@ -10,11 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//
-// Created by pelluro on 31/12/17.
-//
 #include "../include/lem_in.h"
-#include "../include/libft/libft.h"
 
 static void	check_start_end(t_map *m, char **r, int end)
 {

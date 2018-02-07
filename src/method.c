@@ -6,13 +6,10 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:54:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/03 15:54:39 by mipham           ###   ########.fr       */
+/*   Updated: 2018/01/11 14:02:43 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//
-// Created by pelluro on 31/12/17.
-//
 #include "../include/libft/libft.h"
 #include "../include/lem_in.h"
 
@@ -40,7 +37,7 @@ void	links(t_map *m, char *line)
 	m->links = join_str(m->links, line, 0);
 }
 
-int	room_index(t_map *m, char *room_name, int start)
+int		room_index(t_map *m, char *room_name, int start)
 {
 	int index;
 	
@@ -68,7 +65,8 @@ void	count_ants(t_map *m, char *line)
 		exit_func(m, 1);
 	while (s[i] != '\n' && s[i] != 0)
 	{
-		if (!ft_isdigit(s[i++]))
+		if (!ft_isdigit(s[i]))
 			exit_func(m, 1);
+		i++;
 	}
 }

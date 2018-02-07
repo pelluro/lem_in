@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
-#include "../include/libft/libft.h"
 
 static int		is_empty(char *s)
 {
@@ -24,6 +23,8 @@ static int		is_empty(char *s)
 		return (1);
 	return (0);
 }
+
+
 
 static t_map	*map_init_2(t_map *m)
 {
@@ -49,26 +50,6 @@ static t_map	*map_init_2(t_map *m)
 	return (m);
 }
 
-static void		read_map(t_map *m)
-{
-	char *line;
-	
-	while (get_next_line(STDIN_FILENO, &line) > 0)
-	{
-		if (m->ants == 0)
-			count_ants(m, line);
-		else if (ft_strchr(line, '-') || m->started == 3)
-			links(m, line);
-		else if ((m->started == 1 || m->started == 2) && !is_empty(line))
-			rooms(m, line);
-		else
-			exit_func(m, 1);
-	}
-	if (!m->ants || !m->links[0])
-		exit_func(m, 1);
-	m = map_init_2(m);
-}
-
 static t_map	*map_init(void)
 {
 	t_map *m;
@@ -91,6 +72,26 @@ static t_map	*map_init(void)
 	return (m);
 }
 
+static void		read_map(t_map *m)
+{
+	char *line;
+
+	while (get_next_line(STDIN_FILENO, &line) > 0)
+	{
+		if (m->ants == 0)
+			count_ants(m, line);
+		else if (ft_strchr(line, '-') || m->started == 3)
+			links(m, line);
+		else if ((m->started == 1 || m->started == 2) && !is_empty(line))
+			rooms(m, line);
+		else
+			exit_func(m, 1);
+	}
+	if (!m->ants || !m->links[0])
+		exit_func(m, 1);
+	m = map_init_2(m);
+}
+
 int				main(void)
 {
 	t_map *m;
@@ -101,7 +102,8 @@ int				main(void)
 	if (!m->good[0] || !m->good[1])
 		exit_func(m, 1);
 	create_tab(m);
-	print_matrix(m);
+	//show the matrix and connection inside them
+	//print_matrix(m);
 	if (solution(m, 0))
 		result(m);
 	else
