@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:54:16 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/03 15:54:32 by mipham           ###   ########.fr       */
+/*   Updated: 2018/02/15 14:19:58 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,28 +85,33 @@ static void		read_map(t_map *m)
 		else if ((m->started == 1 || m->started == 2) && !is_empty(line))
 			rooms(m, line);
 		else
-			exit_func(m, 1);
+			ft_exit(m, 1);
 	}
+	free(line);
 	if (!m->ants || !m->links[0])
-		exit_func(m, 1);
+	{
+		ft_exit(m, 1);
+	}
 	m = map_init_2(m);
 }
 
-int				main(void)
+int				main(int ac, char **av)
 {
-	t_map *m;
-	
+	t_map	*m;
+
 	m = map_init();
 	read_map(m);
 	add_rooms(m);
 	if (!m->good[0] || !m->good[1])
-		exit_func(m, 1);
+		ft_exit(m, 1);
 	create_tab(m);
 	//show the matrix and connection inside them
-	print_matrix(m);
-	if (solution(m, 0))
+	if (ac == 2 && !ft_strcmp(av[1], "-v"))
+		print_map(m);
+	if (solve(m, 0))
 		result(m);
 	else
-		exit_func(m, 1);
-	exit_func(m, 0);
+		ft_exit(m, 1);
+	ft_exit(m, 0);
+	return (0);
 }

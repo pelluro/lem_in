@@ -10,13 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//
-// Created by pelluro on 31/12/17.
-//
-#include "../include/libft/libft.h"
 #include "../include/lem_in.h"
 
-void	exit_func(t_map *m, int error)
+void	ft_exit(t_map *m, int error)
 {
 	int i;
 	
@@ -26,7 +22,7 @@ void	exit_func(t_map *m, int error)
 	if (m->init_2)
 	{
 		free(m->path);
-		free_array(m->rooms, m, 0);
+		free_tab(m->rooms, m, 0);
 		i = -1;
 		while (++i < m->q_rooms)
 			free(m->tab[i]);
@@ -41,7 +37,7 @@ void	exit_func(t_map *m, int error)
 	exit(0);
 }
 
-void	free_array(char **array, t_map *m, int error)
+void	free_tab(char **array, t_map *m, int error)
 {
 	int i;
 	
@@ -50,7 +46,7 @@ void	free_array(char **array, t_map *m, int error)
 		(array[i]) ? free(array[i++]) : 0;
 	free(array);
 	if (error)
-		exit_func(m, 1);
+		ft_exit(m, 1);
 	array = NULL;
 }
 

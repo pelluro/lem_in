@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:53:27 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/03 15:53:33 by mipham           ###   ########.fr       */
+/*   Updated: 2018/02/13 17:50:38 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ static void	check_start_end(t_map *m, char **r, int end)
 	(m->good[0])++;
 }
 
-static void	good(t_map *m, char **line, char **r, int end)
+static void	is_good(t_map *m, char **line, char **r, int end)
 {
 	if (++(m->good[end]) > 1)
 	{
-		free_array(r, m, 0);
-		free_array(line, m, 1);
+		free_tab(r, m, 0);
+		free_tab(line, m, 1);
 	}
 }
 
@@ -39,7 +39,7 @@ static void	is_valid(t_map *m, int i, char **r)
 	
 	r_index = room_index(m, r[0], 0);
 	if (r_index > 0 && i != r_index)
-		exit_func(m, 1);
+		ft_exit(m, 1);
 	m->rooms[i] = ft_strdup(r[0]);
 }
 
@@ -57,16 +57,16 @@ void		add_rooms(t_map *m)
 	{
 		r = ft_strsplit(line[i], ' ');
 		if (!ft_strcmp("##start", line[i]))
-			good(m, line, r, 0);
+			is_good(m, line, r, 0);
 		else if (!ft_strcmp("##end", line[i]))
-			good(m, line, r, 1);
+			is_good(m, line, r, 1);
 		else if (m->good[0] == 1 && line[i][0] != '#')
 			check_start_end(m, r, 0);
 		else if (m->good[1] == 1 && line[i][0] != '#')
 			check_start_end(m, r, 1);
 		else if (line[i][0] != '#')
 			is_valid(m, j++, r);
-		free_array(r, m, 0);
+		free_tab(r, m, 0);
 	}
-	free_array(line, m, 0);
+	free_tab(line, m, 0);
 }

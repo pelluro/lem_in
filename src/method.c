@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft/libft.h"
 #include "../include/lem_in.h"
 
 char	*join_str(char *s1, char *s2, int clean)
@@ -28,12 +27,13 @@ char	*join_str(char *s1, char *s2, int clean)
 	return (new_s);
 }
 
+//links that was passed on arguments
 void	links(t_map *m, char *line)
 {
 	if (m->started == 2)
 		m->started = 3;
 	if (m->started != 3)
-		exit_func(m, 1);
+		ft_exit(m, 1);
 	m->links = join_str(m->links, line, 0);
 }
 
@@ -62,11 +62,11 @@ void	count_ants(t_map *m, char *line)
 		return ;
 	s = ft_strtrim(line);
 	if ((m->ants = ft_atoi(s)) <= 0)
-		exit_func(m, 1);
+		ft_exit(m, 1);
 	while (s[i] != '\n' && s[i] != 0)
 	{
 		if (!ft_isdigit(s[i]))
-			exit_func(m, 1);
+			ft_exit(m, 1);
 		i++;
 	}
 }

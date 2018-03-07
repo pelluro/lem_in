@@ -13,12 +13,12 @@
 #include "../include/libft/libft.h"
 #include "../include/lem_in.h"
 
-static void	header(t_map *m)
+static void	ft_header(t_map *m)
 {
 	int i;
-	
+
 	i = -1;
-	ft_putstr("\n\n");
+	ft_putstr("\n");
 	ft_putstr("\t   ");
 	while (++i < m->q_rooms)
 	{
@@ -28,12 +28,12 @@ static void	header(t_map *m)
 	ft_putstr("\n\n");
 }
 
-void		print_matrix(t_map *m)
+void		print_map(t_map *m)
 {
 	int i;
 	int j;
 	
-	header(m);
+	ft_header(m);
 	i = -1;
 	while (++i < m->q_rooms)
 	{
