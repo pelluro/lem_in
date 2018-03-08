@@ -55,7 +55,7 @@ static int	is_in_path(t_map *m, int r_index)
 			return (1);
 	}
 	return (0);
-}
+};
 
 int			solve(t_map *m, int i)
 {

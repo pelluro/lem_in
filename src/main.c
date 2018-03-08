@@ -15,7 +15,7 @@
 static int		is_empty(char *s)
 {
 	size_t i;
-	
+
 	i = 0;
 	while (s[i] && ft_isspace(s[i]))
 		i++;
@@ -30,7 +30,7 @@ static t_map	*map_init_2(t_map *m)
 {
 	int i;
 	int j;
-	
+
 	i = -1;
 	m->init_2 = 1;
 	m->path = (int*)ft_memalloc(sizeof(int) * 1000);
@@ -53,7 +53,7 @@ static t_map	*map_init_2(t_map *m)
 static t_map	*map_init(void)
 {
 	t_map *m;
-	
+
 	m = (t_map*)ft_memalloc(sizeof(t_map));
 	m->links = ft_strnew(1);
 	m->ants_str = ft_strnew(1);
@@ -80,14 +80,14 @@ static void		read_map(t_map *m)
 	{
 		if (m->ants == 0)
 			count_ants(m, line);
-		else if (ft_strchr(line, '-') || m->started == 3)
+		else if (line && (ft_strchr(line, '-') || m->started == 3))
 			links(m, line);
 		else if ((m->started == 1 || m->started == 2) && !is_empty(line))
 			rooms(m, line);
 		else
 			ft_exit(m, 1);
+		ft_strdel(&line);
 	}
-	free(line);
 	if (!m->ants || !m->links[0])
 	{
 		ft_exit(m, 1);
@@ -113,5 +113,6 @@ int				main(int ac, char **av)
 	else
 		ft_exit(m, 1);
 	ft_exit(m, 0);
+	free(m);
 	return (0);
 }

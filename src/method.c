@@ -15,10 +15,14 @@
 char	*join_str(char *s1, char *s2, int clean)
 {
 	char *new_s;
-	
+
 	new_s = ft_strnew(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (s1[0] == 0)
+	{
+		free(new_s);
+		free(s1);
 		return (s2);
+	}
 	ft_strcat(new_s, s1);
 	ft_strcat(new_s, "\n");
 	ft_strcat(new_s, s2);
@@ -40,7 +44,7 @@ void	links(t_map *m, char *line)
 int		room_index(t_map *m, char *room_name, int start)
 {
 	int index;
-	
+
 	index = (start) ? -1 : 0;
 	while (m->rooms[++index] && index < m->q_rooms)
 	{
@@ -54,7 +58,7 @@ void	count_ants(t_map *m, char *line)
 {
 	int		i;
 	char	*s;
-	
+
 	i = 0;
 	m->started = 1;
 	m->ants_str = join_str(m->ants_str, line, 0);
@@ -69,4 +73,5 @@ void	count_ants(t_map *m, char *line)
 			ft_exit(m, 1);
 		i++;
 	}
+	free(s);
 }
