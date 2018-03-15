@@ -12,60 +12,89 @@
 
 #include "libft.h"
 
-static int		malloc_more(char **buf, int size)
+int		ft_strclen(char *s, char c)
 {
-	int		i;
-	char	*tmp;
-
-	tmp = *buf;
-	*buf = malloc(sizeof(char) * (ft_strlen(tmp) + size + 1));
-	i = -1;
-	while (tmp[++i] != '\0')
-		(*buf)[i] = tmp[i];
-	(*buf)[i] = '\0';
-	free(tmp);
-	return (i);
-}
-
-static int		get_part(char **buf, char **line)
-{
-	char	*tmp;
-	int		i;
+	int i;
 
 	i = 0;
-	tmp = *buf;
-	while (tmp[i] != '\0' && tmp[i] != '\n')
+	while (s[i] != '\0')
+	{
+		if (s[i] == c)
+			return (i);
 		i++;
-	if (tmp[i] != '\n')
-		return (0);
-	tmp[i] = '\0';
-	*line = ft_strdup(*buf);
-	*buf = ft_strdup(*buf + i + 1);
-	free(tmp);
-	return (1);
+	}
+	return (-1);
 }
 
-int				get_next_line(int const fd, char **line)
+int		read_left(t_gnl *gnl, char **line, char c)
 {
-	static char		*buf = NULL;
-	int				ret;
-	int				i;
-	static int		real = 1;
+	char	*tmp;
+	int		len;
+	int		s_len;
 
-	if (!real)
-		return (0);
-	if (buf == NULL)
-		buf = ft_strdup("");
-	if (get_part(&buf, line))
+	len = (int)ft_strlen(gnl->str);
+	if (c != 0)
+	{
+		s_len = ft_strclen(gnl->str, c);
+		if (!(*line = ft_strsub(gnl->str, 0, s_len)))
+			return (-1);
+		tmp = gnl->str;
+		if (!(gnl->str = ft_strsub(gnl->str, s_len + 1, len - s_len - 1)))
+			return (-1);
+		free(tmp);
 		return (1);
-	i = malloc_more(&buf, BUFF_SIZE);
-	ret = read(fd, buf + i, BUFF_SIZE);
-	if (ret == -1)
+	}
+	else
+	{
+		if (!(*line = ft_strsub(gnl->str, 0, len)))
+			return (-1);
+		if (!(gnl->str = ft_strnew(0)))
+			return (-1);
+		return (1);
+	}
+	return (0);
+}
+
+int		read_line(t_gnl *gnl, char **line)
+{
+	char	buf[BUFF_SIZE + 1];
+	char	*tmp;
+
+	while ((gnl->r_stt = read(gnl->fd, buf, BUFF_SIZE)) > 0)
+	{
+		buf[gnl->r_stt] = '\0';
+		tmp = gnl->str;
+		if (!(gnl->str = ft_strjoin(gnl->str, buf)))
+			return (-1);
+		free(tmp);
+		if (ft_strclen(gnl->str, '\n') != -1)
+			return (read_left(gnl, line, '\n'));
+	}
+	if (gnl->r_stt == 0 && (int)ft_strlen(gnl->str) > 0)
+		return (read_left(gnl, line, 0));
+	return (gnl->r_stt);
+}
+
+int		get_next_line(const int fd, char **line)
+{
+	static t_gnl	*gnl;
+	t_gnl			*tmp;
+
+	if (fd < 0 || !line)
 		return (-1);
-	buf[i + ret] = '\0';
-	if (ret != 0)
-		return (get_next_line(fd, line));
-	*line = ft_strdup(buf);
-	free(buf);
-	return (real--);
+	tmp = gnl;
+	while (tmp && tmp->fd != fd)
+		tmp = tmp->next;
+	if (!tmp)
+	{
+		if (!(tmp = (t_gnl *)malloc(sizeof(t_gnl))))
+			return (-1);
+		tmp->str = ft_strnew(0);
+		tmp->fd = fd;
+		tmp->next = gnl;
+		gnl = tmp;
+	}
+	if (ft_strclen(tmp->str, '\n') != -1)
+		return (read_left(tmp, line, '\n'));
+	return (read_line(tmp, line));
 }

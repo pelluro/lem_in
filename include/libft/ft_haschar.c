@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   ft_haschar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 16:38:08 by mipham            #+#    #+#             */
-/*   Updated: 2017/11/10 20:10:42 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/07 16:35:42 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/16 12:33:30 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-int	ft_isspace(int c)
+int		ft_haschar(const char *s, int c)
 {
-	return (c == '\t' || c == '\n' || c == '\v'
-			|| c == '\f' || c == '\r' || c == ' ');
+	char	*src;
+	int		i;
+
+	src = (char *)s;
+	i = 0;
+	while (src[i] && src[i] != (char)c)
+		i++;
+	if (src[i] == (char)c)
+		return (1);
+	return (0);
 }

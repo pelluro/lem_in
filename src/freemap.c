@@ -24,7 +24,7 @@ void	ft_exit(t_map *m, int error)
 		free(m->path);
 		free_tab(m->rooms, m, 0);
 		i = -1;
-		while (++i < m->q_rooms)
+		while (++i < m->nb_rooms)
 			free(m->tab[i]);
 		free(m->tab);
 	}

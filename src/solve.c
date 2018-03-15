@@ -14,10 +14,10 @@
 
 static int	is_last_room(t_map *m, int i)
 {
-	if (m->tab[i][m->q_rooms - 1])
+	if (m->tab[i][m->nb_rooms - 1])
 	{
 		m->path[++(m->p_ind)] = i;
-		m->path[++(m->p_ind)] = m->q_rooms - 1;
+		m->path[++(m->p_ind)] = m->nb_rooms - 1;
 		return (1);
 	}
 	return (0);
@@ -36,7 +36,7 @@ static void	erase_elem(t_map *m, int i, int path)
 
 static int	find_door(t_map *m, int r_index, int d_index)
 {
-	while (d_index < m->q_rooms)
+	while (d_index < m->nb_rooms)
 	{
 		if (m->tab[r_index][++d_index] == 1)
 			return (d_index);
@@ -59,9 +59,9 @@ static int	is_in_path(t_map *m, int r_index)
 
 int			solve(t_map *m, int i)
 {
-	if (m->tab[0][m->q_rooms - 1])
+	if (m->tab[0][m->nb_rooms - 1])
 	{
-		m->path[++(m->p_ind)] = m->q_rooms - 1;
+		m->path[++(m->p_ind)] = m->nb_rooms - 1;
 		return (1);
 	}
 	while ((i = find_door(m, m->curr_room, i)))

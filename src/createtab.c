@@ -38,8 +38,8 @@ void		create_tab(t_map *m)
 			continue ;
 		validate_link(m, links[i]);
 		l = ft_strsplit(links[i], '-');
-		if ((r_1 = room_index(m, l[0], 1)) >= m->q_rooms ||
-			(r_2 = room_index(m, l[1], 1)) >= m->q_rooms)
+		if ((r_1 = room_index(m, l[0], 1)) >= m->nb_rooms ||
+			(r_2 = room_index(m, l[1], 1)) >= m->nb_rooms)
 		{
 			free_tab(l, m, 0);
 			free_tab(links, m, 1);

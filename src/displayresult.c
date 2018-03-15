@@ -20,7 +20,7 @@ static void	ft_header(t_map *m)
 	i = -1;
 	ft_putstr("\n");
 	ft_putstr("\t   ");
-	while (++i < m->q_rooms)
+	while (++i < m->nb_rooms)
 	{
 		ft_putchar(' ');
 		ft_putnbr((i > 9) ? (i % 10) : i);
@@ -32,16 +32,16 @@ void		print_map(t_map *m)
 {
 	int i;
 	int j;
-	
+
 	ft_header(m);
 	i = -1;
-	while (++i < m->q_rooms)
+	while (++i < m->nb_rooms)
 	{
 		ft_putchar('\t');
 		ft_putnbr((i > 9) ? (i % 10) : i);
 		ft_putstr("   ");
 		j = -1;
-		while (++j < m->q_rooms)
+		while (++j < m->nb_rooms)
 		{
 			ft_putnbr(m->tab[i][j]);
 			ft_putchar(' ');
@@ -57,17 +57,22 @@ void		print_map(t_map *m)
 
 static void	print_ant(int ant, char *room)
 {
+	ft_putstr(C_CYAN);
 	ft_putchar('L');
+	ft_putstr(C_BLUE);
 	ft_putnbr(ant);
+	ft_putstr(C_NONE);
 	ft_putchar('-');
+	ft_putstr(C_MAGENTA);
 	ft_putstr(room);
+	ft_putstr(C_NONE);
 	ft_putchar(' ');
 }
 
 static void	print_result(t_map *m, int n)
 {
 	int ants;
-	
+
 	if (n == (m->p_ind + m->ants + 1))
 		return ;
 	ants = m->ants + 1;
@@ -83,7 +88,7 @@ static void	print_result(t_map *m, int n)
 void		result(t_map *m)
 {
 	int i;
-	
+
 	i = -1;
 	ft_putendl(m->ants_str);
 	ft_putendl(m->rooms_list);

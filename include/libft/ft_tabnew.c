@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   ft_tabnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 16:38:08 by mipham            #+#    #+#             */
-/*   Updated: 2017/11/10 20:10:42 by mipham           ###   ########.fr       */
+/*   Created: 2017/12/27 15:50:07 by mipham            #+#    #+#             */
+/*   Updated: 2017/12/27 16:02:27 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-int	ft_isspace(int c)
+int	*ft_tabnew(size_t size)
 {
-	return (c == '\t' || c == '\n' || c == '\v'
-			|| c == '\f' || c == '\r' || c == ' ');
+	int	*str;
+
+	if (!(str = (int*)malloc(sizeof(*str) * (size + 1))))
+		return (NULL);
+	ft_bzero(str, size + 1);
+	return (str);
 }

@@ -36,20 +36,26 @@ char			**ft_split_whitespaces(char *str)
 	char	**result;
 	int		i;
 	int		j;
+	int	  k;
 
 	i = ft_count_words(str);
 	if (!(result = (char **)malloc((i + 1) * sizeof(char *))))
 		return (NULL);
-	j = -1;
-	while (*str)
-	{
-		while (*str && (*str == '\t' || *str == ' ' || *str == '\n'))
-			str++;
-		if (*str && *str != '\t' && *str != ' ' && *str != '\n')
-			result[++j] = ft_strdup(str);
-		while (*str && *str != '\t' && *str != ' ' && *str != '\n')
-			str++;
-	}
 	result[i] = NULL;
+	i = 0;
+	j = 0;
+	k = 0;
+	while (str[i])
+	{
+		while (str[i] && (str[i] == '\t' || str[i] == ' ' || str[i] == '\n'))
+			i++;
+		if (str[i] && str[i] != '\t' && str[i] != ' ' && str[i] != '\n')
+		{
+			j = i;
+			while (str[i] && str[i] != '\t' && str[i] != ' ' && str[i] != '\n')
+				i++;
+			 result[k++] = ft_strsub(str,j,i-j);
+		}
+	}
 	return (result);
 }

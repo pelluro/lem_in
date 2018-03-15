@@ -43,12 +43,12 @@ static void		validate_room(t_map *m, char *line)
 
 void			rooms(t_map *m, char *line)
 {
-	m->started = 2;
+	m->flag = 2;
 	m->rooms_list = join_str(m->rooms_list, line, 0);
 	if (line[0] == '#')
 		return ;
 	validate_room(m, line);
-	m->q_rooms++;
+	m->nb_rooms++;
 }
 
 

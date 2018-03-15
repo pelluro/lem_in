@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static char		*ft_verif(int nbr)
+static char		*ft_verif (int nbr)
 {
 	if (nbr == 0)
 		return (ft_strdup("0"));
@@ -54,7 +54,7 @@ char			*ft_itoa(int nbr)
 
 	puissance = 0;
 	if (nbr == 0 || nbr == -2147483648)
-		return (ft_verif(nbr));
+		return (ft_verif (nbr));
 	if (nbr < 0)
 		return (ft_itoa_core(-nbr, ++puissance, 1));
 	else

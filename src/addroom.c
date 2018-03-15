@@ -16,7 +16,7 @@ static void	check_start_end(t_map *m, char **r, int end)
 {
 	if (end)
 	{
-		m->rooms[m->q_rooms - 1] = ft_strdup(r[0]);
+		m->rooms[m->nb_rooms - 1] = ft_strdup(r[0]);
 		(m->good[1])++;
 		return ;
 	}
@@ -53,7 +53,7 @@ void		add_rooms(t_map *m)
 	i = -1;
 	j = 1;
 	line = ft_strsplit(m->rooms_list, '\n');
-	while (line[++i] && j < m->q_rooms)
+	while (line[++i] && j < m->nb_rooms)
 	{
 		r = ft_strsplit(line[i], ' ');
 		if (!ft_strcmp("##start", line[i]))

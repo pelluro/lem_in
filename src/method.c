@@ -34,9 +34,9 @@ char	*join_str(char *s1, char *s2, int clean)
 //links that was passed on arguments
 void	links(t_map *m, char *line)
 {
-	if (m->started == 2)
-		m->started = 3;
-	if (m->started != 3)
+	if (m->flag == 2)
+		m->flag = 3;
+	if (m->flag != 3)
 		ft_exit(m, 1);
 	m->links = join_str(m->links, line, 0);
 }
@@ -46,7 +46,7 @@ int		room_index(t_map *m, char *room_name, int start)
 	int index;
 
 	index = (start) ? -1 : 0;
-	while (m->rooms[++index] && index < m->q_rooms)
+	while (m->rooms[++index] && index < m->nb_rooms)
 	{
 		if (ft_strcmp(m->rooms[index], room_name) == 0)
 			return (index);
@@ -60,7 +60,7 @@ void	count_ants(t_map *m, char *line)
 	char	*s;
 
 	i = 0;
-	m->started = 1;
+	m->flag = 1;
 	m->ants_str = join_str(m->ants_str, line, 0);
 	if (line[0] == '#')
 		return ;
