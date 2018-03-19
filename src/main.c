@@ -33,7 +33,7 @@ static t_map	*map_init_2(t_map *m)
 
 	i = -1;
 	m->init_2 = 1;
-	m->path = (int*)ft_memalloc(sizeof(int) * 1000);
+	m->path = (int*)ft_memalloc(sizeof(int) * 100000);
 	m->tab = (int**)ft_memalloc(sizeof(int*) * m->nb_rooms);
 	m->rooms = (char**)ft_memalloc(sizeof(char*) * (m->nb_rooms + 1));
 	while (++i < m->nb_rooms)
@@ -86,10 +86,12 @@ static void		read_map(t_map *m)
 			rooms(m, line);
 		else
 		{
-			free(line);
+//			ft_memdel(&line);
 			ft_exit(m, 1);
 		}
+//		ft_memdel((void **)&line);
 		free(line);
+		line = NULL;
 	}
 	if (!m->ants || !m->links[0])
 	{
@@ -102,7 +104,7 @@ int				main(int ac, char **av)
 {
 	t_map	*m;
 
-//	freopen("/Users/mipham/Documents/lem_in/maps/subject-2.map","r",stdin);
+//	freopen("/Users/mipham/Documents/lem_in/maps/subject-1.map","r",stdin);
 	m = map_init();
 	read_map(m);
 	add_rooms(m);

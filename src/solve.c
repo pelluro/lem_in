@@ -38,8 +38,9 @@ static int	find_door(t_map *m, int r_index, int d_index)
 {
 	while (d_index < m->nb_rooms)
 	{
-		if (m->tab[r_index][++d_index] == 1)
+		if (m->tab[r_index][d_index] == 1)
 			return (d_index);
+		d_index++;
 	}
 	return (0);
 }
@@ -70,6 +71,7 @@ int			solve(t_map *m, int i)
 			return (1);
 		else if (is_in_path(m, i))
 			erase_elem(m, i, 0);
+		i++;
 	}
 	if ((m->curr_room = find_door(m, m->curr_room, 0)) == 0)
 	{

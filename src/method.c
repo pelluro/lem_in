@@ -21,7 +21,7 @@ char	*join_str(char *s1, char *s2, int clean)
 	{
 		free(new_s);
 		free(s1);
-		return (s2);
+		return (ft_strdup(s2));
 	}
 	ft_strcat(new_s, s1);
 	ft_strcat(new_s, "\n");
