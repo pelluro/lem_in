@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 16:54:50 by mipham            #+#    #+#             */
-/*   Updated: 2017/12/07 17:39:49 by mipham           ###   ########.fr       */
+/*   Updated: 2018/03/23 16:08:02 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int		read_left(t_gnl *gnl, char **line, char c)
 			return (-1);
 		tmp = gnl->str;
 		if (!(gnl->str = ft_strsub(gnl->str, s_len + 1, len - s_len - 1)))
+		{
+			free(tmp);
 			return (-1);
+		}
 		free(tmp);
 		return (1);
 	}
@@ -48,6 +51,7 @@ int		read_left(t_gnl *gnl, char **line, char c)
 	{
 		if (!(*line = ft_strsub(gnl->str, 0, len)))
 			return (-1);
+		gnl->str ? free(gnl->str) : 0;
 		if (!(gnl->str = ft_strnew(0)))
 			return (-1);
 		return (1);

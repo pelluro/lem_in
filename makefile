@@ -6,7 +6,7 @@
 #    By: mipham <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/27 15:48:09 by mipham            #+#    #+#              #
-#    Updated: 2017/12/27 15:48:24 by mipham           ###   ########.fr        #
+#    Updated: 2018/03/23 13:41:17 by mipham           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,13 +30,13 @@ SRC = src/addroom.c\
         src/main.c\
         src/solve.c\
 
-INC = -I includes
+INC = -I include
 
 OBJ = $(SRC:.c=.o)
 
 CC = gcc
 
-LIBPATH =	include/libft/libft.a
+LIBPATH = include/libft/libft.a
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -44,8 +44,11 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C $(LIB)
-	$(CC) -o $(NAME) $(OBJ) $(LIBPATH)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBPATH)
 	@echo "${_YELLlOW}lem_in generate${_END} ${_BLUE}[!${_END}]"
+
+%.o: %.c include/lem_in.h
+	$(CC) $(CFLAG) $(INC) -I $(LIB) -o $@ -c $<
 
 clean:
 		rm -f $(OBJ)

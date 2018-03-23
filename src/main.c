@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:54:16 by mipham            #+#    #+#             */
-/*   Updated: 2018/02/15 14:19:58 by mipham           ###   ########.fr       */
+/*   Updated: 2018/03/23 15:05:28 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,7 @@ static void		read_map(t_map *m)
 		else if ((m->flag == 1 || m->flag == 2) && !is_empty(line))
 			rooms(m, line);
 		else
-		{
-//			ft_memdel(&line);
 			ft_exit(m, 1);
-		}
-//		ft_memdel((void **)&line);
 		free(line);
 		line = NULL;
 	}
@@ -111,7 +107,6 @@ int				main(int ac, char **av)
 	if (!m->good[0] || !m->good[1])
 		ft_exit(m, 1);
 	create_tab(m);
-	//show the matrix and connection inside them
 	if (ac == 2 && !ft_strcmp(av[1], "-v"))
 		print_map(m);
 	if (solve(m, 0))
