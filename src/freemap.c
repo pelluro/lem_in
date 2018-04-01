@@ -16,8 +16,6 @@ void	ft_exit(t_map *m, int error)
 {
 	int i;
 
-//	if (m->links).
-//		ft_memdel((void **)&(m->links));
 	free(m->links);
 	free(m->ants_str);
 	free(m->rooms_list);

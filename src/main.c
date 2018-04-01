@@ -61,8 +61,6 @@ static t_map	*map_init(void)
 	m->nb_rooms = 0;
 	m->ants = 0;
 	m->flag = 0;
-	m->curr_room = 0;
-	m->p_ind = 0;
 	m->best_size = -1;
 	m->init_2 = 0;
 	m->good[0] = 0;
@@ -95,9 +93,7 @@ static void		read_map(t_map *m)
 	}
 	ft_maprooms(m);
 	if (!m->ants || !m->links[0] || !ft_checkcoords(m, 0))
-	{
 		ft_exit(m, 1);
-	}
 	m = map_init_2(m);
 }
 
@@ -118,7 +114,7 @@ int				main(int ac, char **av)
 	t_map	*m;
 	int     *path;
 
-	freopen("/mnt/c/Users/pellu/lem_in/maps/big","r",stdin);
+	freopen("/mnt/c/Users/pellu/lem_in/maps/subject-1.map","r",stdin);
 	m = map_init();
 	read_map(m);
 	add_rooms(m);
@@ -135,8 +131,7 @@ int				main(int ac, char **av)
 		result(m);
 		ft_exit(m, 0);
 	}
-	else {
+	else
 		ft_exit(m, 1);
-	}
 	return (0);
 }

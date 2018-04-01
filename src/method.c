@@ -75,28 +75,3 @@ void	count_ants(t_map *m, char *line)
 	}
 	free(s);
 }
-
-int             ft_sizetab(int* tab)
-{
-	int i;
-
-	i = 0;
-	while(tab[i]>=0)
-	{
-		i++;
-	}
-	return (i);
-}
-
-void            ft_copytabint(t_map* m, int* from, int** to)
-{
-	int i;
-
-	(*to) = (int*)malloc(sizeof(int) * m->nb_rooms);
-	i = 0;
-	while(i < m->nb_rooms)
-	{
-		(*to)[i] = from[i];
-		i++;
-	}
-}

@@ -93,4 +93,5 @@ add_executable(lem-in
         src/freemap.c
         src/main.c
         src/method.c
+        src/method2.c
         src/solve.c)

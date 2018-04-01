@@ -27,6 +27,7 @@ SRC = src/addroom.c\
         src/displayresult.c\
         src/freemap.c\
         src/method.c\
+        src/method2.c\
         src/main.c\
         src/solve.c\
 

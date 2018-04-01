@@ -57,33 +57,47 @@ void		print_map(t_map *m)
 
 static void	print_ant(int ant, char *room)
 {
-//	ft_putstr(C_CYAN);
+ 	ft_putstr(C_CYAN);
 	ft_putchar('L');
-//	ft_putstr(C_BLUE);
+ 	ft_putstr(C_BLUE);
 	ft_putnbr(ant);
-//	ft_putstr(C_NONE);
+ 	ft_putstr(C_NONE);
 	ft_putchar('-');
-//	ft_putstr(C_MAGENTA);
+ 	ft_putstr(C_MAGENTA);
 	ft_putstr(room);
-//	ft_putstr(C_NONE);
+ 	ft_putstr(C_NONE);
 	ft_putchar(' ');
 }
 
-static void	print_result(t_map *m, int nbants, int stepfirstant, int lastarrivedant)
+void nextprint_result(t_map *m, int nbants, int stepfirst, int lant)
+{
+    if(stepfirst < m->best_size -1)
+        stepfirst++;
+    if(stepfirst == m->best_size - 1)
+		lant++;
+    if(lant > m->ants)
+        return;
+    if(nbants < m->ants)
+        print_result(m, nbants + 1, stepfirst, lant);
+    else
+        print_result(m, nbants,stepfirst, lant);
+}
+
+void	print_result(t_map *m, int nbants, int stepfirst, int lant)
 {
     int i;
     int step;
     int f;
 
-    i = 1;
+    i = 0;
     f = 1;
     step = 0;
-    while(i <= nbants)
+    while(++i <= nbants)
     {
-        if(i >= lastarrivedant) {
+        if(i >= lant) {
             if(f) {
                 f = 0;
-                step = stepfirstant;
+                step = stepfirst;
             }
             else {
                 ft_putstr(" ");
@@ -91,20 +105,9 @@ static void	print_result(t_map *m, int nbants, int stepfirstant, int lastarrived
             }
             print_ant(i, m->rooms[m->path[step]]);
         }
-        i++;
     }
     ft_putchar('\n');
-    if(stepfirstant < m->best_size -1)
-        stepfirstant++;
-    if(stepfirstant == m->best_size - 1)
-        lastarrivedant++;
-    if(lastarrivedant > m->ants)
-        return;
-    if(nbants < m->ants) {
-        print_result(m, nbants + 1, stepfirstant, lastarrivedant);
-    }
-    else
-        print_result(m, nbants,stepfirstant, lastarrivedant);
+    nextprint_result(m, nbants, stepfirst, lant);
 }
 
 void		result(t_map *m)
