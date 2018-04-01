@@ -57,32 +57,54 @@ void		print_map(t_map *m)
 
 static void	print_ant(int ant, char *room)
 {
-	ft_putstr(C_CYAN);
+//	ft_putstr(C_CYAN);
 	ft_putchar('L');
-	ft_putstr(C_BLUE);
+//	ft_putstr(C_BLUE);
 	ft_putnbr(ant);
-	ft_putstr(C_NONE);
+//	ft_putstr(C_NONE);
 	ft_putchar('-');
-	ft_putstr(C_MAGENTA);
+//	ft_putstr(C_MAGENTA);
 	ft_putstr(room);
-	ft_putstr(C_NONE);
+//	ft_putstr(C_NONE);
 	ft_putchar(' ');
 }
 
-static void	print_result(t_map *m, int n)
+static void	print_result(t_map *m, int nbants, int stepfirstant, int lastarrivedant)
 {
-	int ants;
+    int i;
+    int step;
+    int f;
 
-	if (n == (m->p_ind + m->ants + 1))
-		return ;
-	ants = m->ants + 1;
-	while (--ants > 0)
-	{
-		if (n - ants > 0 && (n - ants) <= m->p_ind)
-			print_ant(ants, m->rooms[m->path[n - ants]]);
-	}
-	ft_putchar('\n');
-	print_result(m, ++n);
+    i = 1;
+    f = 1;
+    step = 0;
+    while(i <= nbants)
+    {
+        if(i >= lastarrivedant) {
+            if(f) {
+                f = 0;
+                step = stepfirstant;
+            }
+            else {
+                ft_putstr(" ");
+                step--;
+            }
+            print_ant(i, m->rooms[m->path[step]]);
+        }
+        i++;
+    }
+    ft_putchar('\n');
+    if(stepfirstant < m->best_size -1)
+        stepfirstant++;
+    if(stepfirstant == m->best_size - 1)
+        lastarrivedant++;
+    if(lastarrivedant > m->ants)
+        return;
+    if(nbants < m->ants) {
+        print_result(m, nbants + 1, stepfirstant, lastarrivedant);
+    }
+    else
+        print_result(m, nbants,stepfirstant, lastarrivedant);
 }
 
 void		result(t_map *m)
@@ -95,14 +117,14 @@ void		result(t_map *m)
 	ft_putendl(m->links);
 	ft_putchar('\n');
 	//show the connection between room
-	while (++i <= m->p_ind)
+	while (++i < m->best_size)
 	{
-		ft_putchar('[');
-		ft_putnbr(m->path[i]);
-		ft_putchar(']');
-		if (i != m->p_ind)
+		if (i > 0)
 			ft_putchar('-');
+		ft_putchar('[');
+		ft_putstr(m->rooms[m->path[i]]);
+		ft_putchar(']');
 	}
 	ft_putstr("\n\n");
-	print_result(m, 2);
+	print_result(m, 1, 1, 0);
 }

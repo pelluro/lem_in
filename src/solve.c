@@ -12,26 +12,21 @@
 
 #include "../include/lem_in.h"
 
-static int	is_last_room(t_map *m, int i)
+static int	is_last_room(t_map *m, int* path, int i)
 {
 	if (m->tab[i][m->nb_rooms - 1])
 	{
-		m->path[++(m->p_ind)] = i;
-		m->path[++(m->p_ind)] = m->nb_rooms - 1;
+		path[++(m->p_ind)] = i;
+		path[++(m->p_ind)] = m->nb_rooms - 1;
 		return (1);
 	}
 	return (0);
 }
 
-static void	erase_elem(t_map *m, int i, int path)
+static void	erase_elem(t_map *m, int i)
 {
 	m->tab[m->curr_room][i] = 0;
 	m->tab[i][m->curr_room] = 0;
-	if (path)
-	{
-		m->path[m->p_ind] = -1;
-		m->p_ind--;
-	}
 }
 
 static int	find_door(t_map *m, int r_index, int d_index)
@@ -45,45 +40,97 @@ static int	find_door(t_map *m, int r_index, int d_index)
 	return (0);
 }
 
-static int	is_in_path(t_map *m, int r_index)
+
+
+static int	is_in_path(int* path, int r_index)
 {
 	int i;
 	
 	i = -1;
-	while (m->path[++i] != -1)
+	while (path[++i] != -1)
 	{
-		if (m->path[i] == r_index)
+		if (path[i] == r_index)
 			return (1);
 	}
 	return (0);
 };
 
-int			solve(t_map *m, int i)
+int				ft_isuseful(t_map *m, int roomindex, int stepcount)
 {
-	if (m->tab[0][m->nb_rooms - 1])
+	if (m->bestpathperroom[roomindex] == -1 || stepcount < m->bestpathperroom[roomindex])
 	{
-		m->path[++(m->p_ind)] = m->nb_rooms - 1;
+		m->bestpathperroom[roomindex] = stepcount;
 		return (1);
 	}
-	while ((i = find_door(m, m->curr_room, i)))
+	return (0);
+}
+
+int             ft_isnewroom(t_map *m, int* path, int roomindex)
+{
+    int i;
+
+    i = 0;
+    while(i < m->nb_rooms)
+    {
+        if(path[i] == roomindex)
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+void            printtab(t_map* m, int *tab)
+{
+    int i;
+
+    i = 0;
+    while(i < m->nb_rooms && tab[i]>=0)
+    {
+        if(i > 0)
+            printf(", %d", tab[i]);
+        else
+            printf("%d",tab[i]);
+        i++;
+    }
+    printf("\n");
+}
+
+void			solve(t_map *m, int* path, int currentroomindex)
+{
+	int* pathnext;
+	int i;
+	int currentstepscount;
+
+	i = 0;
+	pathnext = NULL;
+	currentstepscount = ft_sizetab(path);
+	if (m->best_size > -1 && currentstepscount >= m->best_size)
+		return;
+
+	while(i < m->nb_rooms)
 	{
-		if (is_last_room(m, i))
-			return (1);
-		else if (is_in_path(m, i))
-			erase_elem(m, i, 0);
+		if(m->tab[currentroomindex][i] && ft_isnewroom(m, path, i) && ft_isuseful(m, i, currentstepscount))
+		{
+			// On arrive à la derniere room
+			if(i == m->nb_rooms - 1)
+			{
+				path[currentstepscount++] = i;
+                if (m->best_size == -1 || currentstepscount < m->best_size)
+				{
+				    m->best_size = currentstepscount;
+					ft_copytabint(m, path, &(m->path));
+					free(path);
+				}
+                return;
+			}
+			// Sinon
+			else {
+			    ft_copytabint(m, path, &pathnext);
+                pathnext[currentstepscount] = i;
+                solve(m, pathnext, i);
+			}
+		}
 		i++;
 	}
-	if ((m->curr_room = find_door(m, m->curr_room, 0)) == 0)
-	{
-		if (m->p_ind == 0 || m->curr_room == 0)
-			return (0);
-		m->curr_room = m->path[m->p_ind - 1];
-		erase_elem(m, m->path[m->p_ind], 1);
-		if (solve(m, 0))
-			return (1);
-	}
-	m->path[++(m->p_ind)] = m->curr_room;
-	if (solve(m, 0))
-		return (1);
-	return (0);
+
 }

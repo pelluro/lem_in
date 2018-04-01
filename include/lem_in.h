@@ -16,8 +16,16 @@
 # include "libft/libft.h"
 # include <limits.h>
 
+typedef struct s_room
+{
+    char*       name;
+    int         x;
+    int         y;
+}               t_room;
+
 typedef struct	s_map
 {
+    t_room      **roommap;      // array of rooms
 	char		**rooms;		// array of room names
 	char		*rooms_list;	// list of rooms that was passed at the beginning
 	char		*ants_str;		// list of ants that was passed at the beginning
@@ -29,6 +37,8 @@ typedef struct	s_map
 	int			p_ind;			// last path index, current size of path
 	int			*path;			// path
 	int			**tab;			// edge table
+	int 		*bestpathperroom;
+	int			best_size;		// when path found, best path size found
 	int			good[2];		// a part of validation
 	int			init_2;			// a part of validation
 }				t_map;
@@ -39,13 +49,20 @@ void			links(t_map *m, char *line);
 
 void			add_rooms(t_map *m);
 void			create_tab(t_map *m);
-int				solve(t_map *m, int i);
+void				solve(t_map *m, int* path, int i);
 
 char			*join_str(char *s1, char *s2, int clean);
 void			free_tab(char **array, t_map *m, int error);
 int				room_index(t_map *m, char *room_name, int start);
+int     ft_checkcoords(t_map* m, int roomindex);
 
 void			result(t_map *m);
 void			print_map(t_map *m);
 void			ft_exit(t_map *m, int error);
+int             ft_sizetab(int* tab);
+void            ft_copytabint(t_map *m, int* from, int** to);
+int             ft_isnewroom(t_map *m, int* path, int roomindex);
+int             ft_isuseful(t_map *m, int roomindex, int stepcount);
+void            ft_initpath(t_map *m, int** path);
+void            ft_maprooms(t_map *m);
 #endif

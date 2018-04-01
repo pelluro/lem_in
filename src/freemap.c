@@ -24,7 +24,8 @@ void	ft_exit(t_map *m, int error)
 	if (m->init_2)
 	{
 		free(m->path);
-		free_tab(m->rooms, m, 0);
+		if(m->rooms)
+			free_tab(m->rooms, m, 0);
 		i = -1;
 		while (++i < m->nb_rooms)
 			free(m->tab[i]);
@@ -45,7 +46,7 @@ void	free_tab(char **array, t_map *m, int error)
 	
 	i = 0;
 	while (array[i])
-		(array[i]) ? free(array[i++]) : 0;
+		free(array[i++]);
 	free(array);
 	if (error)
 		ft_exit(m, 1);

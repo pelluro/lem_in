@@ -33,21 +33,21 @@ static t_map	*map_init_2(t_map *m)
 
 	i = -1;
 	m->init_2 = 1;
-	m->path = (int*)ft_memalloc(sizeof(int) * 100000);
 	m->tab = (int**)ft_memalloc(sizeof(int*) * m->nb_rooms);
 	m->rooms = (char**)ft_memalloc(sizeof(char*) * (m->nb_rooms + 1));
+    m->bestpathperroom  = (int*)ft_memalloc(sizeof(int*) * m->nb_rooms);
+
 	while (++i < m->nb_rooms)
 	{
-		m->path[i] = -1;
+		m->bestpathperroom[i] = -1;
 		m->rooms[i] = NULL;
-		m->tab[i] = (int*)ft_memalloc(sizeof(int) * m->nb_rooms);
+        m->tab[i] = (int*)ft_memalloc(sizeof(int) * m->nb_rooms);
 		j = -1;
 		while (m->tab[i][++j])
 			m->tab[i][j] = 0;
 	}
 	m->rooms[i] = NULL;
-	m->path[0] = 0;
-	return (m);
+    return (m);
 }
 
 static t_map	*map_init(void)
@@ -63,14 +63,18 @@ static t_map	*map_init(void)
 	m->flag = 0;
 	m->curr_room = 0;
 	m->p_ind = 0;
+	m->best_size = -1;
 	m->init_2 = 0;
 	m->good[0] = 0;
 	m->good[1] = 0;
 	m->rooms = NULL;
 	m->tab = NULL;
 	m->path = NULL;
+	m->bestpathperroom = NULL;
+	m->roommap = NULL;
 	return (m);
 }
+
 
 static void		read_map(t_map *m)
 {
@@ -89,31 +93,50 @@ static void		read_map(t_map *m)
 		free(line);
 		line = NULL;
 	}
-	if (!m->ants || !m->links[0])
+	ft_maprooms(m);
+	if (!m->ants || !m->links[0] || !ft_checkcoords(m, 0))
 	{
 		ft_exit(m, 1);
 	}
 	m = map_init_2(m);
 }
 
+void            ft_initpath(t_map* m, int **path)
+{
+    int i;
+
+    i = 0;
+    (*path) = (int*)malloc(sizeof(int) * (m->nb_rooms));
+    while(i < m->nb_rooms) {
+        (*path)[i] = -1;
+        i++;
+    }
+}
+
 int				main(int ac, char **av)
 {
 	t_map	*m;
+	int     *path;
 
-//	freopen("/Users/mipham/Documents/lem_in/maps/subject-1.map","r",stdin);
+	freopen("/mnt/c/Users/pellu/lem_in/maps/big","r",stdin);
 	m = map_init();
 	read_map(m);
 	add_rooms(m);
 	if (!m->good[0] || !m->good[1])
 		ft_exit(m, 1);
 	create_tab(m);
+	ft_initpath(m, &path);
+	path[0] = 0;
 	if (ac == 2 && !ft_strcmp(av[1], "-v"))
 		print_map(m);
-	if (solve(m, 0))
+	solve(m, path, 0);
+	if (m->best_size > -1)
+	{
 		result(m);
-	else
+		ft_exit(m, 0);
+	}
+	else {
 		ft_exit(m, 1);
-	ft_exit(m, 0);
-	free(m);
+	}
 	return (0);
 }
