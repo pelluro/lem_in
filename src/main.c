@@ -103,7 +103,8 @@ void            ft_initpath(t_map* m, int **path)
 
     i = 0;
     (*path) = (int*)malloc(sizeof(int) * (m->nb_rooms));
-    while(i < m->nb_rooms) {
+    while(i < m->nb_rooms)
+	{
         (*path)[i] = -1;
         i++;
     }
@@ -114,7 +115,7 @@ int				main(int ac, char **av)
 	t_map	*m;
 	int     *path;
 
-	freopen("/mnt/c/Users/pellu/lem_in/maps/subject-1.map","r",stdin);
+	freopen("/mnt/c/Users/pellu/lem_in/maps/big","r",stdin);
 	m = map_init();
 	read_map(m);
 	add_rooms(m);
