@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:53:41 by mipham            #+#    #+#             */
-/*   Updated: 2018/04/03 16:26:32 by mipham           ###   ########.fr       */
+/*   Updated: 2018/04/03 16:40:09 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		validate_room(t_map *m, char *line, int makestructroomindex)
 		free_tab(r, m, 1);
 	is_number(r, m, r[1]);
 	is_number(r, m, r[2]);
-	if (makestructroomindex>=0) 
+	if (makestructroomindex >= 0)
 	{
 		m->roommap[makestructroomindex] = (t_room *) malloc(sizeof(t_room));
 		m->roommap[makestructroomindex]->name = r[0];
@@ -83,10 +83,11 @@ void		ft_maprooms(t_map *m)
 	char	**roomstab;
 
 	i = 0;
-	j = 0;
+	j = -1;
 	roomstab = ft_strsplit(m->rooms_list, '\n');
+//	free(m->rooms_list);
 	m->roommap = (t_room**)ft_memalloc(sizeof(t_room*) * (m->nb_rooms + 1));
-	while (j < m->nb_rooms)
+	while (++j < m->nb_rooms)
 	{
 		while (roomstab[i][0] == '#')
 		{
@@ -96,7 +97,6 @@ void		ft_maprooms(t_map *m)
 		validate_room(m, roomstab[i], j);
 		free(roomstab[i]);
 		i++;
-		j++;
 	}
 	free(roomstab);
 	m->roommap[j] = NULL;
