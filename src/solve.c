@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:54:43 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/03 15:54:45 by mipham           ###   ########.fr       */
+/*   Updated: 2018/04/03 16:17:00 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void    checkbestsize(t_map *m, int* path, int currentstepscount)
     if (m->best_size == -1 || currentstepscount < m->best_size)
     {
         m->best_size = currentstepscount;
+		if (m->path)
+			free(m->path);
         ft_copytabint(m, path, &(m->path));
         free(path);
     }
@@ -72,6 +74,7 @@ void			solve(t_map *m, int* path, int currentroomindex)
             ft_copytabint(m, path, &pathnext);
             pathnext[currentstepscount] = i;
             solve(m, pathnext, i);
+			free(pathnext);
 		}
 	}
 }

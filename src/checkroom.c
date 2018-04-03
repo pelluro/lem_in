@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:53:41 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/11 12:43:37 by mipham           ###   ########.fr       */
+/*   Updated: 2018/04/03 16:26:32 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ static void		validate_room(t_map *m, char *line, int makestructroomindex)
 		free_tab(r, m, 1);
 	is_number(r, m, r[1]);
 	is_number(r, m, r[2]);
-	if(makestructroomindex>=0) {
+	if (makestructroomindex>=0) 
+	{
 		m->roommap[makestructroomindex] = (t_room *) malloc(sizeof(t_room));
 		m->roommap[makestructroomindex]->name = r[0];
 		m->roommap[makestructroomindex]->x = ft_atoi(r[1]);
 		m->roommap[makestructroomindex]->y = ft_atoi(r[2]);
-	}free_tab(r, m, 0);
+	}
+	free_tab(r, m, 0);
 }
 
 int     ft_checkcoords(t_map* m, int roomindex)
@@ -51,15 +53,16 @@ int     ft_checkcoords(t_map* m, int roomindex)
     int i;
 
     i = roomindex+1;
-    if(roomindex >= m->nb_rooms)
+    if (roomindex >= m->nb_rooms)
         return (1);
-    while(i < m->nb_rooms)
+    while (i < m->nb_rooms)
     {
-        if(m->roommap[i]->x == m->roommap[roomindex]->x && m->roommap[i]->y == m->roommap[roomindex]->y)
+        if (m->roommap[i]->x == m->roommap[roomindex]->x &&
+				m->roommap[i]->y == m->roommap[roomindex]->y)
             return (0);
         i++;
     }
-    return ft_checkcoords(m, roomindex + 1);
+    return (ft_checkcoords(m, roomindex + 1));
 }
 
 
@@ -75,23 +78,26 @@ void			rooms(t_map *m, char *line)
 
 void		ft_maprooms(t_map *m)
 {
-	int i;
-	int j;
-	char** roomstab;
+	int		i;
+	int		j;
+	char	**roomstab;
 
 	i = 0;
 	j = 0;
-	roomstab = ft_strsplit(m->rooms_list,'\n');
+	roomstab = ft_strsplit(m->rooms_list, '\n');
 	m->roommap = (t_room**)ft_memalloc(sizeof(t_room*) * (m->nb_rooms + 1));
-	while(j < m->nb_rooms)
+	while (j < m->nb_rooms)
 	{
-		while(roomstab[i][0]=='#')
+		while (roomstab[i][0] == '#')
+		{
+			free(roomstab[i]);
 			i++;
+		}
 		validate_room(m, roomstab[i], j);
+		free(roomstab[i]);
 		i++;
 		j++;
 	}
-	m->roommap[i] = NULL;
-
+	free(roomstab);
+	m->roommap[j] = NULL;
 }
-
