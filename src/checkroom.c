@@ -90,7 +90,6 @@ void		ft_maprooms(t_map *m)
 		free (roomstab);
 		return ;
 	}
-//	free(m->rooms_list);
 	m->roommap = (t_room**)ft_memalloc(sizeof(t_room*) * (m->nb_rooms + 1));
 	while (++j < m->nb_rooms)
 	{
@@ -103,6 +102,7 @@ void		ft_maprooms(t_map *m)
 		free(roomstab[i]);
 		i++;
 	}
-	free_tab(roomstab, m, 0);
+	free(roomstab);
+//	free_tab(roomstab, m, 0);
 	m->roommap[j] = NULL;
 }
