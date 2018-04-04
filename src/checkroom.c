@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:53:41 by mipham            #+#    #+#             */
-/*   Updated: 2018/04/03 16:40:09 by mipham           ###   ########.fr       */
+/*   Updated: 2018/04/04 16:46:01 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,11 @@ void		ft_maprooms(t_map *m)
 	i = 0;
 	j = -1;
 	roomstab = ft_strsplit(m->rooms_list, '\n');
+	if (!roomstab[0])
+	{
+		free (roomstab);
+		return ;
+	}
 //	free(m->rooms_list);
 	m->roommap = (t_room**)ft_memalloc(sizeof(t_room*) * (m->nb_rooms + 1));
 	while (++j < m->nb_rooms)
@@ -98,6 +103,6 @@ void		ft_maprooms(t_map *m)
 		free(roomstab[i]);
 		i++;
 	}
-	free(roomstab);
+	free_tab(roomstab, m, 0);
 	m->roommap[j] = NULL;
 }

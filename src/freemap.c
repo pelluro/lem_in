@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:54:07 by mipham            #+#    #+#             */
-/*   Updated: 2018/04/03 17:12:39 by mipham           ###   ########.fr       */
+/*   Updated: 2018/04/04 15:16:21 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_exit(t_map *m, int error)
 		}
 		free(m->roommap);
 		free(m->tab);
+		free(m->path);
 		free(m->bestpathperroom);
 	}
 	free(m);

@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:54:16 by mipham            #+#    #+#             */
-/*   Updated: 2018/04/03 11:56:01 by mipham           ###   ########.fr       */
+/*   Updated: 2018/04/04 15:24:01 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int				main(int ac, char **av)
 	t_map	*m;
 	int     *path;
 
-//	freopen("/mnt/c/Users/pellu/lem_in/maps/big","r",stdin);
+	freopen("/Users/mipham/Documents/Github/gitlem_in2/maps/subject-3.map","r",stdin);
 	m = map_init();
 	read_map(m);
 	add_rooms(m);
@@ -133,6 +133,9 @@ int				main(int ac, char **av)
 		ft_exit(m, 0);
 	}
 	else
+	{
+		free(path);
 		ft_exit(m, 1);
+	}
 	return (0);
 }
