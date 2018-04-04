@@ -20,12 +20,15 @@ void	ft_exit(t_map *m, int error)
 	free(m->ants_str);
 	free(m->rooms_list);
 	i = -1;
-	while (m->roommap[++i])
+	if (m->roommap)
 	{
-		m->roommap[i]->name ? free(m->roommap[i]->name) : 0;
-		m->roommap[i] ? free(m->roommap[i]) : 0;
+		while (m->roommap[++i])
+		{
+//			m->roommap[i]->name ? free(m->roommap[i]->name) : 0;
+			m->roommap[i] ? free(m->roommap[i]) : 0;
+		}
+		free(m->roommap);
 	}
-	free(m->roommap);
 	if (m->init_2)
 	{
 		free(m->path);
@@ -50,7 +53,7 @@ void	ft_exit(t_map *m, int error)
 void	free_tab(char **array, t_map *m, int error)
 {
 	int i;
-	
+
 	i = 0;
 	while (array[i])
 		free(array[i++]);
@@ -59,4 +62,3 @@ void	free_tab(char **array, t_map *m, int error)
 		ft_exit(m, 1);
 	array = NULL;
 }
-
