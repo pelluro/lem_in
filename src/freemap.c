@@ -54,9 +54,9 @@ void	free_tab(char **array, t_map *m, int error)
 {
 	int i;
 
-	i = 0;
-	while (array[i])
-		free(array[i++]);
+	i = -1;
+	while (array[++i])
+		free(array[i]);
 	free(array);
 	if (error)
 		ft_exit(m, 1);

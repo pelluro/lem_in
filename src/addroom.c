@@ -39,7 +39,10 @@ static void	is_valid(t_map *m, int i, char **r)
 	
 	r_index = room_index(m, r[0], 0);
 	if (r_index > 0 && i != r_index)
+	{
+		free_tab(r, m, 0);
 		ft_exit(m, 1);
+	}
 	m->rooms[i] = ft_strdup(r[0]);
 }
 

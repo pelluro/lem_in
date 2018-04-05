@@ -115,7 +115,7 @@ int				main(int ac, char **av)
 	t_map	*m;
 	int     *path;
 
-//	freopen("/home/pelluro/Travail/lem_in_last/maps/subject-6.map","r",stdin);
+//	freopen("/Users/mipham/Documents/Github/gitlem_in2/maps/abc","r",stdin);
 	m = map_init();
 	read_map(m);
 	add_rooms(m);
