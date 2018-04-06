@@ -115,7 +115,6 @@ int				main(int ac, char **av)
 	t_map	*m;
 	int     *path;
 
-//	freopen("/Users/mipham/Documents/Github/gitlem_in2/maps/abc","r",stdin);
 	m = map_init();
 	read_map(m);
 	add_rooms(m);

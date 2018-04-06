@@ -43,6 +43,8 @@ static void	is_valid(t_map *m, int i, char **r)
 		free_tab(r, m, 0);
 		ft_exit(m, 1);
 	}
+//	if (!m->rooms[0])
+//		m->rooms[0] = ft_strdup("0");
 	m->rooms[i] = ft_strdup(r[0]);
 }
 

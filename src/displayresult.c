@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft/libft.h"
+#include "../libft/libft.h"
 #include "../include/lem_in.h"
 
 static void	ft_header(t_map *m)

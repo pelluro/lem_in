@@ -31,7 +31,6 @@ char	*join_str(char *s1, char *s2, int clean)
 	return (new_s);
 }
 
-//links that was passed on arguments
 void	links(t_map *m, char *line)
 {
 	if (m->flag == 2)
@@ -62,6 +61,8 @@ void	count_ants(t_map *m, char *line)
 	i = 0;
 	m->flag = 1;
 	m->ants_str = join_str(m->ants_str, line, 0);
+	if (!ft_strcmp(line, "##start"))
+		ft_exit(m, 1);
 	if (line[0] == '#')
 		return ;
 	s = ft_strtrim(line);

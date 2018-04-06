@@ -24,7 +24,7 @@ void	ft_exit(t_map *m, int error)
 	{
 		while (m->roommap[++i])
 		{
-//			m->roommap[i]->name ? free(m->roommap[i]->name) : 0;
+//			m->roommap[i]->name ? free(m->roommap[i]->name) : 0;`
 			m->roommap[i] ? free(m->roommap[i]) : 0;
 		}
 		free(m->roommap);

@@ -19,7 +19,7 @@ _YELLOW = $'\x1b[33m
 _PURPLE = $'\x1b[35m
 _BLUE = $'\x1b[34m
 
-LIB = include/libft
+LIB = libft
 
 SRC = src/addroom.c\
         src/checkroom.c\
@@ -37,7 +37,7 @@ OBJ = $(SRC:.c=.o)
 
 CC = gcc
 
-LIBPATH = include/libft/libft.a
+LIBPATH = libft/libft.a
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -53,12 +53,12 @@ $(NAME): $(OBJ)
 
 clean:
 		rm -f $(OBJ)
-			make clean -C ./include/libft/
+			make clean -C ./libft/
 			@echo "${_CYAN}cleaning objects files${_END} ${_PURPLE}[!${_END}]"
 
 fclean: clean
 		rm -f $(NAME)
-			make fclean -C ./include/libft/
+			make fclean -C ./libft/
 			@echo "${_RED}delete $(NAME) ${_END}${_GREEN}[!${_END}]"
 
 re: fclean all
