@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/03 15:53:27 by mipham            #+#    #+#             */
-/*   Updated: 2018/03/23 13:42:29 by mipham           ###   ########.fr       */
+/*   Created: 2018/04/06 18:04:45 by mipham            #+#    #+#             */
+/*   Updated: 2018/04/06 18:08:31 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,13 @@ static void	is_good(t_map *m, char **line, char **r, int end)
 static void	is_valid(t_map *m, int i, char **r)
 {
 	int r_index;
-	
+
 	r_index = room_index(m, r[0], 0);
 	if (r_index > 0 && i != r_index)
 	{
 		free_tab(r, m, 0);
 		ft_exit(m, 1);
 	}
-//	if (!m->rooms[0])
-//		m->rooms[0] = ft_strdup("0");
 	m->rooms[i] = ft_strdup(r[0]);
 }
 
@@ -54,7 +52,7 @@ void		add_rooms(t_map *m)
 	int		j;
 	char	**line;
 	char	**r;
-	
+
 	i = -1;
 	j = 1;
 	line = ft_strsplit(m->rooms_list, '\n');

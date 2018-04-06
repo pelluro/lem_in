@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:53:51 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/03 15:53:53 by mipham           ###   ########.fr       */
+/*   Updated: 2018/04/06 18:44:33 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	validate_link(t_map *m, char *link)
 {
-	char **l;
-	
+	char	**l;
+
 	l = ft_strsplit(link, '-');
 	if (l[2] != NULL)
 		free_tab(l, m, 1);
@@ -39,7 +39,7 @@ void		create_tab(t_map *m)
 		validate_link(m, links[i]);
 		l = ft_strsplit(links[i], '-');
 		if ((r_1 = room_index(m, l[0], 1)) >= m->nb_rooms ||
-			(r_2 = room_index(m, l[1], 1)) >= m->nb_rooms)
+				(r_2 = room_index(m, l[1], 1)) >= m->nb_rooms)
 		{
 			free_tab(l, m, 0);
 			free_tab(links, m, 1);

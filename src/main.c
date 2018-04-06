@@ -6,25 +6,11 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:54:16 by mipham            #+#    #+#             */
-/*   Updated: 2018/04/04 16:49:12 by mipham           ###   ########.fr       */
+/*   Updated: 2018/04/06 19:11:36 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/lem_in.h"
-
-static int		is_empty(char *s)
-{
-	size_t i;
-
-	i = 0;
-	while (s[i] && ft_isspace(s[i]))
-		i++;
-	if (i == ft_strlen(s))
-		return (1);
-	return (0);
-}
-
-
 
 static t_map	*map_init_2(t_map *m)
 {
@@ -35,24 +21,23 @@ static t_map	*map_init_2(t_map *m)
 	m->init_2 = 1;
 	m->tab = (int**)ft_memalloc(sizeof(int*) * m->nb_rooms);
 	m->rooms = (char**)ft_memalloc(sizeof(char*) * (m->nb_rooms + 1));
-    m->bestpathperroom  = (int*)ft_memalloc(sizeof(int*) * m->nb_rooms);
-
+	m->bestpathperroom = (int*)ft_memalloc(sizeof(int*) * m->nb_rooms);
 	while (++i < m->nb_rooms)
 	{
 		m->bestpathperroom[i] = -1;
 		m->rooms[i] = NULL;
-        m->tab[i] = (int*)ft_memalloc(sizeof(int) * m->nb_rooms);
+		m->tab[i] = (int*)ft_memalloc(sizeof(int) * m->nb_rooms);
 		j = -1;
 		while (m->tab[i][++j])
 			m->tab[i][j] = 0;
 	}
 	m->rooms[i] = NULL;
-    return (m);
+	return (m);
 }
 
 static t_map	*map_init(void)
 {
-	t_map *m;
+	t_map	*m;
 
 	m = (t_map*)ft_memalloc(sizeof(t_map));
 	m->links = ft_strnew(1);
@@ -73,10 +58,9 @@ static t_map	*map_init(void)
 	return (m);
 }
 
-
 static void		read_map(t_map *m)
 {
-	char *line;
+	char	*line;
 
 	while (get_next_line(STDIN_FILENO, &line) > 0)
 	{
@@ -97,23 +81,23 @@ static void		read_map(t_map *m)
 	m = map_init_2(m);
 }
 
-void            ft_initpath(t_map* m, int **path)
+void			ft_initpath(t_map *m, int **path)
 {
-    int i;
+	int i;
 
-    i = 0;
-    (*path) = (int*)malloc(sizeof(int) * (m->nb_rooms));
-    while(i < m->nb_rooms)
+	i = 0;
+	(*path) = (int*)malloc(sizeof(int) * (m->nb_rooms));
+	while (i < m->nb_rooms)
 	{
-        (*path)[i] = -1;
-        i++;
-    }
+		(*path)[i] = -1;
+		i++;
+	}
 }
 
 int				main(int ac, char **av)
 {
 	t_map	*m;
-	int     *path;
+	int		*path;
 
 	m = map_init();
 	read_map(m);

@@ -12,27 +12,32 @@
 
 #include "../include/lem_in.h"
 
-void	ft_exit(t_map *m, int error)
+static void	ft_free_rommap(t_room **roommap)
+{
+	int i;
+
+	i = 0;
+	while (roommap[i])
+	{
+		free(roommap[i]);
+		i++;
+	}
+	free(roommap);
+}
+
+void		ft_exit(t_map *m, int error)
 {
 	int i;
 
 	free(m->links);
 	free(m->ants_str);
 	free(m->rooms_list);
-	i = -1;
 	if (m->roommap)
-	{
-		while (m->roommap[++i])
-		{
-//			m->roommap[i]->name ? free(m->roommap[i]->name) : 0;`
-			m->roommap[i] ? free(m->roommap[i]) : 0;
-		}
-		free(m->roommap);
-	}
+		ft_free_rommap(m->roommap);
 	if (m->init_2)
 	{
 		free(m->path);
-		if(m->rooms)
+		if (m->rooms)
 			free_tab(m->rooms, m, 0);
 		i = -1;
 		while (++i < m->nb_rooms)
@@ -40,7 +45,6 @@ void	ft_exit(t_map *m, int error)
 		free(m->tab);
 		free(m->bestpathperroom);
 	}
-
 	free(m);
 	if (error)
 	{
@@ -50,7 +54,7 @@ void	ft_exit(t_map *m, int error)
 	exit(0);
 }
 
-void	free_tab(char **array, t_map *m, int error)
+void		free_tab(char **array, t_map *m, int error)
 {
 	int i;
 
