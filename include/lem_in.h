@@ -57,6 +57,8 @@ char			*join_str(char *s1, char *s2, int clean);
 void			free_tab(char **array, t_map *m, int error);
 int				room_index(t_map *m, char *room_name, int start);
 int             ft_checkcoords(t_map* m, int roomindex);
+int				is_empty(char *s);
+void			print_ant(int ant, char *room);
 
 void			result(t_map *m);
 void			print_map(t_map *m);

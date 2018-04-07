@@ -31,6 +31,7 @@ static t_map	*map_init_2(t_map *m)
 		while (m->tab[i][++j])
 			m->tab[i][j] = 0;
 	}
+	m->rooms[0] = ft_strdup(" ");
 	m->rooms[i] = NULL;
 	return (m);
 }
@@ -99,6 +100,7 @@ int				main(int ac, char **av)
 	t_map	*m;
 	int		*path;
 
+//	freopen("/home/pelluro/Travail/lem_in_last/maps/no_mandatory_comments.map", "r", stdin);
 	m = map_init();
 	read_map(m);
 	add_rooms(m);
@@ -117,7 +119,7 @@ int				main(int ac, char **av)
 	}
 	else
 	{
-		free(path);
+//		free(path);
 		ft_exit(m, 1);
 	}
 	return (0);
